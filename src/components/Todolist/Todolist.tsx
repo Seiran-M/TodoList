@@ -1,9 +1,10 @@
 import React, {ChangeEvent} from 'react'
 import {FilterValuesType} from '../../App'
-import {AddItemForm} from "../AddItemForm/AddItemForm";
-import {EditableSpan} from "../EditableSpan/EditableSpan";
-import {Button, Checkbox, IconButton} from "@material-ui/core";
-import {Delete} from "@material-ui/icons";
+import {AddItemForm} from '../AddItemForm/AddItemForm'
+import {EditableSpan} from '../EditableSpan/EditableSpan'
+import {Button, Checkbox, IconButton} from '@material-ui/core'
+import {Delete} from '@material-ui/icons'
+import style from './Todolist.module.scss'
 
 export type TaskType = {
    id: string
@@ -36,12 +37,13 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
       <div>
          <h3>
             <EditableSpan title={props.title} onChange={changeTodolistTitle}/>
-            {/*<button onClick={removeTodolist}>X</button>*/}
             <IconButton onClick={removeTodolist} size="small" aria-label="delete">
                <Delete/>
             </IconButton>
          </h3>
+
          <AddItemForm addItem={addTask}/>
+
          <div>
             {props.tasks.map(t => {
                const onRemoveHandler = () => props.removeTask(t.id, props.id)
@@ -49,13 +51,13 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
                   props.changeTaskStatus(t.id, e.currentTarget.checked, props.id)
                }
                const onChangeTitleHandler = (newValue: string) => {
-                  props.changeTaskTitle(t.id, newValue, props.id);
+                  props.changeTaskTitle(t.id, newValue, props.id)
                }
                return (
                   <div className={t.isDone ? 'is-done' : ''} key={t.id}>
                      <Checkbox color="primary"
-                            checked={t.isDone}
-                            onChange={onChangeStatusHandler}
+                               checked={t.isDone}
+                               onChange={onChangeStatusHandler}
                      />
                      <EditableSpan title={t.title}
                                    onChange={onChangeTitleHandler}/>
@@ -64,22 +66,20 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
                      </IconButton>
                   </div>
                )
-            })
-            }
+            })}
          </div>
-         <div>
+
+         <div className={style.filterButtons}>
             <Button size="small" variant={props.filter === 'all' ? 'contained' : 'text'}
                     onClick={onAllClickHandler}>All
             </Button>
-            <Button color={"primary"} size="small" variant={props.filter === 'active' ? 'contained' : 'text'}
+            <Button color={'primary'} size="small" variant={props.filter === 'active' ? 'contained' : 'text'}
                     onClick={onActiveClickHandler}>Active
             </Button>
-            <Button color={"secondary"} size="small" variant={props.filter === 'completed' ? 'contained' : 'text'}
+            <Button color={'secondary'} size="small" variant={props.filter === 'completed' ? 'contained' : 'text'}
                     onClick={onCompletedClickHandler}>Completed
             </Button>
          </div>
       </div>
    )
 }
-
-
