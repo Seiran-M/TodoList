@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import './App.scss'
+import './App.css'
 import {Todolist} from './components/Todolist/Todolist'
 import {v1} from 'uuid'
 import {TaskType} from './components/Todolist/Todolist'

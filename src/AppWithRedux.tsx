@@ -1,14 +1,13 @@
 import React, {useCallback} from 'react'
-import './App.scss'
-import {Todolist} from './components/Todolist/Todolist'
+import './App.css'
+import {TaskType, Todolist} from './components/Todolist/Todolist'
 import {AddItemForm} from './components/AddItemForm/AddItemForm'
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
-import {addTodolistAC, changeFilterAC, changeTodolistTitleAC, removeTodolistAC,} from './reducers/todolist-reducer'
+import {addTodolistAC, changeFilterAC, changeTodolistTitleAC, removeTodolistAC,} from './reducers/todolists-reducer'
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './reducers/tasks-reducer'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppRootState} from './state/store'
-import {TasksStateType} from './App'
+import {AppRootStateType} from './state/store'
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 export type TodolistType = {
@@ -17,15 +16,17 @@ export type TodolistType = {
    filter: FilterValuesType
 }
 
+export type TasksStateType = {
+   [key: string]: Array<TaskType>
+}
 
 export const AppWithRedux: React.FC = () => {
 
    console.log('App is called')
 
 
-   const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.todolists)
-   const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks)
-
+   const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+   const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
    const dispatch = useDispatch()
 
    // Functions for todolist:
@@ -49,8 +50,8 @@ export const AppWithRedux: React.FC = () => {
    }, [dispatch])
 
    // Functions for tasks:
-   const removeTask = useCallback((taskId: string, todolistId: string) => {
-      dispatch(removeTaskAC(taskId, todolistId))
+   const removeTask = useCallback( (todolistId: string, taskId: string)=> {
+      dispatch(removeTaskAC(todolistId,taskId ))
    }, [dispatch])
 
    const addTask = useCallback((taskTitle: string, todolistId: string) => {
