@@ -56,16 +56,16 @@ export const AppWithRedux: React.FC = () => {
       dispatch(deleteTaskTC(todolistId, taskId))
    }, [dispatch])
 
-   const addTask = useCallback((todolistId: string, taskTitle: string) => {
-      dispatch(addTaskTC(todolistId, taskTitle))
+   const addTask = useCallback((title: string, todolistId: string) => {
+      dispatch(addTaskTC(todolistId, title))
    }, [dispatch])
 
    const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses, todolistId: string) => {
       dispatch(updateTaskStatusTC(taskId, status, todolistId))
    }, [dispatch])
 
-   const changeTaskTitle = useCallback((todolistId: string, taskId: string, title: string) => {
-      dispatch(changeTaskTitleTC(todolistId, taskId, title))
+   const changeTaskTitle = useCallback((taskId: string, title: string, todolistId: string) => {
+      dispatch(changeTaskTitleTC(taskId, title, todolistId))
    }, [dispatch])
 
    return (
