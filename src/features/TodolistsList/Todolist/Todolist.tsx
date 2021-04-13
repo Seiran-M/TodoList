@@ -1,13 +1,13 @@
 import React, {useCallback, useEffect} from 'react'
-import {AddItemForm} from '../AddItemForm/AddItemForm'
-import {EditableSpan} from '../EditableSpan/EditableSpan'
+import {AddItemForm} from '../../../components/AddItemForm/AddItemForm'
+import {EditableSpan} from '../../../components/EditableSpan/EditableSpan'
 import {Button, IconButton} from '@material-ui/core'
 import {Delete} from '@material-ui/icons'
 import style from './Todolist.module.css'
-import {Task} from './Task'
-import {fetchTasksTC} from '../../reducers/tasks-reducer'
+import {Task} from './Task/Task'
+import {fetchTasksTC} from '../tasks-reducer'
 import {useDispatch} from 'react-redux'
-import {TaskStatuses, TaskType} from '../../api/tasks-api'
+import {TaskStatuses, TaskType} from '../../../api/tasks-api'
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
