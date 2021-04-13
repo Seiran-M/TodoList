@@ -9,19 +9,16 @@ import {
    changeTodolistFilterAC,
    changeTodolistTitleTC,
    fetchTodolistsTC,
-   removeTodolistTC,
+   removeTodolistTC, TasksStateType,
    TodolistDomainType,
 } from './reducers/todolists-reducer'
-import {addTaskTC, changeTaskTitleTC, deleteTaskTC, updateTaskStatusTC,} from './reducers/tasks-reducer'
+import {addTaskTC, deleteTaskTC, updateTaskTC,} from './reducers/tasks-reducer'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './state/store'
-import {TaskStatuses, TaskType} from './api/tasks-api'
+import {TaskStatuses} from './api/tasks-api'
 import {FilterValuesType} from './reducers/todolist-reducer.test'
 
 
-export type TasksStateType = {
-   [key: string]: Array<TaskType>
-}
 
 export const AppWithRedux: React.FC = () => {
    console.log('App is called')
@@ -61,11 +58,11 @@ export const AppWithRedux: React.FC = () => {
    }, [dispatch])
 
    const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses, todolistId: string) => {
-      dispatch(updateTaskStatusTC(taskId, status, todolistId))
+      dispatch(updateTaskTC(taskId, {status}, todolistId))
    }, [dispatch])
 
    const changeTaskTitle = useCallback((taskId: string, title: string, todolistId: string) => {
-      dispatch(changeTaskTitleTC(taskId, title, todolistId))
+      dispatch(updateTaskTC(taskId, {title}, todolistId))
    }, [dispatch])
 
    return (
