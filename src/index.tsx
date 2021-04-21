@@ -1,16 +1,16 @@
 import React from 'react'
+import {Provider} from 'react-redux'
 import ReactDOM from 'react-dom'
+
 import './index.scss'
+import {store} from './state/store'
 import * as serviceWorker from './serviceWorker'
 import {App} from './app/App'
-import {Provider} from 'react-redux'
-import {store} from './state/store'
 
 ReactDOM.render(
    <Provider store={store}>
       <App/>
    </Provider>
-
    , document.getElementById('root'))
 
 serviceWorker.unregister()
