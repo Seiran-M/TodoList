@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {Button, IconButton} from '@material-ui/core'
 import {Delete} from '@material-ui/icons'
 
@@ -10,12 +10,15 @@ import {Task} from './Task/Task'
 import {fetchTasksTC} from '../../../state/reducers/tasks-reducer'
 import {RequestStatusType} from '../../../state/reducers/app-reducer'
 import {TaskStatuses, TaskType} from '../../../api/tasks-api'
+import {Redirect} from 'react-router-dom'
+import {AppRootStateType} from '../../../state/store'
 
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
    const {tasks, title, id, filter, changeFilter, removeTask, changeTaskStatus, changeTaskTitle, entityStatus} = props
 
    console.log('Todolist called')
+
 
    const dispatch = useDispatch()
    useEffect(() => {
@@ -40,6 +43,8 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
    if (filter === 'completed') {
       tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.Completed)
    }
+
+
 
    return (
       <>
