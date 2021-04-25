@@ -57,7 +57,8 @@ export const App: React.FC = () => {
                      Todolists
                   </Typography>
 
-                  {isLoggedIn && <Button className={styles.button} color="inherit" onClick={logoutHandler}>Logout</Button>}
+                  {isLoggedIn &&
+                  <Button className={styles.button} color="inherit" onClick={logoutHandler}>Logout</Button>}
 
                </Toolbar>
                {status === 'loading' && <LinearProgress/>}
