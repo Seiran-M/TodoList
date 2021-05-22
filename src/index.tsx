@@ -6,13 +6,13 @@ import './index.scss'
 import {store} from './state/store'
 import * as serviceWorker from './serviceWorker'
 import {App} from './app/App'
-import {BrowserRouter} from 'react-router-dom'
+import {BrowserRouter, HashRouter} from 'react-router-dom'
 
 ReactDOM.render(
    <React.StrictMode>
       <Provider store={store}>
          <BrowserRouter>
-            <App/>
+               <App />
          </BrowserRouter>
       </Provider>
    </React.StrictMode>

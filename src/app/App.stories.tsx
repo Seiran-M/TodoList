@@ -1,17 +1,15 @@
 import React from 'react'
 import {App} from './App'
-import {Story} from '@storybook/react'
-import {ReduxStoreProviderDecorator} from '../stories/decorators/ReduxStoreProviderDecorator'
+import {BrowserRouterDecorator, ReduxStoreProviderDecorator} from '../stories/decorators/ReduxStoreProviderDecorator'
+import {Meta} from '@storybook/react'
 
 
 export default {
    title: 'Example/App',
    component: App,
-   decorators: [ReduxStoreProviderDecorator]
-}
+   decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator]
+} as Meta
 
-export const AppWBaseExample: Story = () => {
-   return (
-      <App/>
-   )
+export const AppBaseExample = () => {
+   return <App demo={true}/>;
 }

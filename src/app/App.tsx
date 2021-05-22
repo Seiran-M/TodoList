@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {FC, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {
@@ -22,9 +22,13 @@ import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {Login} from '../features/login/Login'
 import {logoutTC} from '../state/reducers/auth-reducer'
 
+type AppPropsT = {
+   demo?: boolean;
+};
 
-export const App: React.FC = () => {
+export const App: FC<AppPropsT> = ({ demo = false }) => {
    console.log('App is called')
+
    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
@@ -32,7 +36,9 @@ export const App: React.FC = () => {
    const dispatch = useDispatch()
 
    useEffect(() => {
-      dispatch(initializeAppTC())
+      if(!demo) {
+         dispatch(initializeAppTC())
+      }
    }, [])
 
    const logoutHandler = () => dispatch(logoutTC())
@@ -65,7 +71,7 @@ export const App: React.FC = () => {
             </AppBar>
             <Container fixed>
                <Switch>
-                  <Route exact path={'/'} render={() => <TodolistsList/>}/>
+                  <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
                   <Route path={'/login'} render={() => <Login/>}/>
                   <Route path={'/404'} render={() => <div className={styles.error}>Error 404: Page not found!</div>}/>
                   <Redirect from={'*'} to={'/404'}/>

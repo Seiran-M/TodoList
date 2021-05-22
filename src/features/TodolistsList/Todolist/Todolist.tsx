@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect, useMemo} from 'react'
 import {useDispatch} from 'react-redux'
 import {Button, IconButton} from '@material-ui/core'
 import {Delete} from '@material-ui/icons'
@@ -13,13 +13,12 @@ import {TaskStatuses, TaskType} from '../../../api/tasks-api'
 
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
-   const {tasks, title, id, filter, changeFilter, removeTask, changeTaskStatus, changeTaskTitle, entityStatus} = props
-
-   console.log('Todolist called')
-
+   const {demo, tasks, title, id, filter, changeFilter, removeTask, changeTaskStatus, changeTaskTitle, entityStatus} = props
 
    const dispatch = useDispatch()
+
    useEffect(() => {
+      if(demo) return;
       const todolistId = id
       dispatch(fetchTasksTC(todolistId))
    }, [])
@@ -36,13 +35,21 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
    let tasksForTodolist = tasks
 
    if (filter === 'active') {
-      tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.New)
+      tasksForTodolist = tasks.filter(task => task.status === TaskStatuses.New)
    }
    if (filter === 'completed') {
-      tasksForTodolist = tasks.filter(t => t.status === TaskStatuses.Completed)
+      tasksForTodolist = tasks.filter(task => task.status === TaskStatuses.Completed)
    }
 
-
+//    let tasksForTodolist = useMemo(() => {
+//       if (filter === "active") {
+//          return tasks.filter((task) => task.status === TaskStatuses.New);
+//       }
+//       if (filter === "completed") {
+//          return tasks.filter((task) => task.status === TaskStatuses.Completed);
+//       }
+//    return tasksForTodolist;
+// }, [filter, tasks]);
 
    return (
       <>
@@ -69,14 +76,14 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
 
          <div>
             {
-               tasksForTodolist.map(t => <Task
+               tasksForTodolist.map(task => <Task
                todolistId={id}
-               task={t}
-               entityStatus={t.entityStatus}
+               task={task}
+               entityStatus={task.entityStatus}
                removeTask={removeTask}
                changeTaskStatus={changeTaskStatus}
                changeTaskTitle={changeTaskTitle}
-               key={t.id}/>)
+               key={task.id}/>)
             }
          </div>
 
@@ -106,8 +113,8 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
 
 // types
 export type FilterValuesType = 'all' | 'active' | 'completed'
-
 type TodolistPropsType = {
+   demo?: boolean,
    title: string
    id: string
    tasks: Array<TaskType>
