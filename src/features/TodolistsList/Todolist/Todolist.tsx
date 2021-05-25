@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {Button, IconButton} from '@material-ui/core'
 import {Delete} from '@material-ui/icons'
@@ -25,7 +25,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
 
 
    const removeTodolist = () => {props.removeTodolist(id)}
-   const addTask = useCallback((title: string) => {props.addTask(title, id)}, [props.addTask, id])
+   const addTask = useCallback((title: string) => {props.addTask(title, id)}, [props, id])
    const changeTodolistTitle = useCallback((newTitle: string) => {props.changeTodolistTitle(id, newTitle)}, [id, props.changeTodolistTitle])
 
    const onAllClickHandler = useCallback(() => changeFilter('all', id), [changeFilter, id])
