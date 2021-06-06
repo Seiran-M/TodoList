@@ -13,12 +13,23 @@ import {TaskStatuses, TaskType} from '../../../api/tasks-api'
 
 
 export const Todolist = React.memo((props: TodolistPropsType) => {
-   const {demo, tasks, title, id, filter, changeFilter, removeTask, changeTaskStatus, changeTaskTitle, entityStatus} = props
+   const {
+      demo,
+      tasks,
+      title,
+      id,
+      filter,
+      changeFilter,
+      removeTask,
+      changeTaskStatus,
+      changeTaskTitle,
+      entityStatus
+   } = props
 
    const dispatch = useDispatch()
 
    useEffect(() => {
-      if(demo) return;
+      if (demo) return
       const todolistId = id
       dispatch(fetchTasksTC(todolistId))
    }, [])
@@ -77,13 +88,13 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
          <div>
             {
                tasksForTodolist.map(task => <Task
-               todolistId={id}
-               task={task}
-               entityStatus={task.entityStatus}
-               removeTask={removeTask}
-               changeTaskStatus={changeTaskStatus}
-               changeTaskTitle={changeTaskTitle}
-               key={task.id}/>)
+                  todolistId={id}
+                  task={task}
+                  entityStatus={task.entityStatus}
+                  removeTask={removeTask}
+                  changeTaskStatus={changeTaskStatus}
+                  changeTaskTitle={changeTaskTitle}
+                  key={task.id}/>)
             }
          </div>
 

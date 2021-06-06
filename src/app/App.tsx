@@ -26,7 +26,7 @@ type AppPropsT = {
    demo?: boolean;
 };
 
-export const App: FC<AppPropsT> = ({ demo = false }) => {
+export const App: FC<AppPropsT> = ({demo = false}) => {
    console.log('App is called')
 
    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
@@ -36,7 +36,7 @@ export const App: FC<AppPropsT> = ({ demo = false }) => {
    const dispatch = useDispatch()
 
    useEffect(() => {
-      if(!demo) {
+      if (!demo) {
          dispatch(initializeAppTC())
       }
    }, [])
