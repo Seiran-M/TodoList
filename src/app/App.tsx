@@ -1,10 +1,19 @@
 import React, {useCallback, useEffect} from 'react'
 import {useSelector} from 'react-redux'
 import {Route} from 'react-router-dom'
-import {AppBar, Button, CircularProgress, Container, IconButton, LinearProgress, Toolbar, Typography} from '@material-ui/core'
+import {
+   AppBar,
+   Button,
+   CircularProgress,
+   Container,
+   IconButton,
+   LinearProgress,
+   Toolbar,
+   Typography
+} from '@material-ui/core'
 import {Menu} from '@material-ui/icons'
 
-import './App.css'
+import styles from './App.module.css'
 import {TodolistsList} from '../features/TodolistsList'
 import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {appActions} from '../features/Application'
@@ -47,10 +56,13 @@ function App({demo = false}: PropsType) {
                <IconButton edge="start" color="inherit" aria-label="menu">
                   <Menu/>
                </IconButton>
-               <Typography variant="h6">
-                  News
-               </Typography>
-               {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
+               <div className={styles.header}>
+                  <Typography variant="h6">
+                     Todos
+                  </Typography>
+
+                  {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
+               </div>
             </Toolbar>
             {status === 'loading' && <LinearProgress/>}
          </AppBar>

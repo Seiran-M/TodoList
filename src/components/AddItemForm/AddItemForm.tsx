@@ -47,6 +47,6 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
 // types
 export type AddItemFormSubmitHelperType = { setError: (error: string) => void, setTitle: (title: string) => void }
 type AddItemFormPropsType = {
-    addItem: (title: string, helper: AddItemFormSubmitHelperType) => void
-    disabled?: boolean
+   addItem: (title: string, helper: AddItemFormSubmitHelperType) => void
+   disabled?: boolean
 }
