@@ -1,22 +1,20 @@
 import React from 'react'
-import {Provider} from 'react-redux'
 import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+import {BrowserRouter} from 'react-router-dom'
 
-import './index.scss'
-import {store} from './state/store'
+import App from './app/App'
+import './index.css'
+import {store} from './app/store'
 import * as serviceWorker from './serviceWorker'
-import {App} from './app/App'
-import {HashRouter} from 'react-router-dom'
+
 
 ReactDOM.render(
-   <React.StrictMode>
-      <Provider store={store}>
-         <HashRouter>
-            <App/>
-         </HashRouter>
-      </Provider>
-   </React.StrictMode>
+   <Provider store={store}>
+      <BrowserRouter>
+         <App/>
+      </BrowserRouter>
+   </Provider>, document.getElementById('root'))
 
-   , document.getElementById('root'))
 
 serviceWorker.unregister()

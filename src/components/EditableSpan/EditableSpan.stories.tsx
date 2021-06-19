@@ -1,1 +1,12 @@
-import React from 'react'import {EditableSpan} from './EditableSpan'import {Meta, Story} from '@storybook/react'import {action} from '@storybook/addon-actions'export default {   title: 'Example/EditableSpan',   component: EditableSpan,} as Metaconst changeCallback = action('Value changed')export const EditableSpanBaseExample: Story = () => {   return <EditableSpan title={'Start value'} onChange={changeCallback}/>}
+import React from 'react'
+import {action} from '@storybook/addon-actions'
+import {EditableSpan} from './EditableSpan'
+
+export default {
+   title: 'EditableSpan Stories',
+   component: EditableSpan
+}
+
+export const EditableSpanFormBaseExample = (props: any) => {
+   return (<EditableSpan value={'StartValue'} onChange={action('value changed')}/>)
+}

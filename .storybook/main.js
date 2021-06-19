@@ -1,11 +1,9 @@
 module.exports = {
-    "stories": [
-        "../src/**/*.stories.mdx",
-        "../src/**/*.stories.@(js|jsx|ts|tsx)"
-    ],
-    "addons": [
-        "@storybook/addon-links",
-        "@storybook/addon-essentials",
+    stories: ['../src/**/*.stories.tsx'],
+    addons: [
+        '@storybook/preset-create-react-appActions',
+        '@storybook/addon-actions',
+        '@storybook/addon-links',
         {
             name: '@storybook/addon-storysource',
             options: {
@@ -14,18 +12,12 @@ module.exports = {
                 },
                 loaderOptions: {
                     prettierConfig: {
-                        tabWidth: 2,
-                        bracketSpacing: true,
-                        trailingComma: 'es5',
-                        singleQuote: true,
-                        printWidth: 80,
-                        options: {
-                            parser: 'typescript',
-                            injectDecorator: false
-                        }
+                        printWidth: 80, singleQuote: false,
+                        options: {parser: 'typescript'}
                     },
                 },
             },
-        },
+        }
     ],
-}
+};
+

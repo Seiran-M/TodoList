@@ -1,1 +1,55 @@
-import axios from 'axios'const instance = axios.create({   baseURL: 'https://social-network.samuraijs.com/api/1.1/',   withCredentials: true,   headers: {'API-KEY': '85f20b48-f9ce-40aa-b7ca-82ca81a13c9b'}})// APIexport const todolistsAPI = {   getTodolists() {      return instance.get<Array<TodolistType>>('todo-lists')   },   createTodolist(title: string) {      return instance.post<ResponseType<{ item: TodolistType }>>('todo-lists', {title})   },   deleteTodolist(todolistId: string) {      return instance.delete<ResponseType>(`todo-lists/${todolistId}`)   },   updateTodolist(todolistId: string, title: string) {      return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title})   }}// typesexport type TodolistType = {   id: string   addedDate: string   order: number   title: string}type ResponseType<D = {}> = {   resultCode: number   messages: Array<string>   data: D}
+import axios from 'axios'
+import {GetTasksResponse, LoginParamsType, ResponseType, TaskType, TodolistType, UpdateTaskModelType} from './types'
+
+const settings = {
+   withCredentials: true,
+   headers: {
+      'API-KEY': '85f20b48-f9ce-40aa-b7ca-82ca81a13c9b'
+   }
+}
+const instance = axios.create({
+   baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+   ...settings
+})
+
+// api
+export const todolistsAPI = {
+   getTodolists() {
+      return instance.get<TodolistType[]>('todo-lists')
+   },
+   createTodolist(title: string) {
+      return instance.post<ResponseType<{ item: TodolistType }>>('todo-lists', {title: title})
+   },
+   deleteTodolist(id: string) {
+      return instance.delete<ResponseType>(`todo-lists/${id}`)
+   },
+   updateTodolist(id: string, title: string) {
+      return instance.put<ResponseType>(`todo-lists/${id}`, {title: title})
+   },
+   getTasks(todolistId: string) {
+      return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
+   },
+   deleteTask(todolistId: string, taskId: string) {
+      return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
+   },
+   createTask(todolistId: string, taskTitile: string) {
+      return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, {title: taskTitile})
+   },
+   updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
+      return instance.put<ResponseType<TaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
+   }
+}
+
+
+export const authAPI = {
+   login(data: LoginParamsType) {
+      return instance.post<ResponseType<{ userId?: number }>>('auth/login', data)
+   },
+   logout() {
+      return instance.delete<ResponseType<{ userId?: number }>>('auth/login')
+   },
+   me() {
+      return instance.get<ResponseType<{ id: number; email: string; login: string }>>('auth/me')
+   }
+}
+

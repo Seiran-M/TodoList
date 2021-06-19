@@ -1,1 +1,35 @@
-import React from 'react'import {Story} from '@storybook/react/types-6-0'import {action} from '@storybook/addon-actions'import {Task} from './Task'import {TaskPriorities, TaskStatuses} from '../../../../api/tasks-api'import {AddItemForm, AddItemFormPropsType} from '../../../../components/AddItemForm/AddItemForm'import {Meta} from '@storybook/react'export default {   title: 'Example/Task',   component: Task,   argTypes: {changeTaskStatusCallback: {action: 'Status changed'}}} as Metaconst Template: Story<AddItemFormPropsType> = (args: any) => {   return <AddItemForm {...args} />}// export const AddItemFormBaseExample = Template.bind({})// AddItemFormBaseExample.args = (title: string) => {alert(title)}const changeTaskStatusCallback = action('Status changed')const changeTaskTitleCallback = action('Title changed')const removeTaskCallback = action('Task removed')export const TaskBaseExample = () => {   return (      <>         <Task            task={{               id: '1', status: TaskStatuses.Completed, title: 'SCSS', entityStatus: 'idle', startDate: '',               priority: TaskPriorities.Low, addedDate: '', order: 1, todoListId: 'todolistId2', description: '',               deadline: ''            }}            changeTaskStatus={changeTaskStatusCallback}            changeTaskTitle={changeTaskTitleCallback}            removeTask={removeTaskCallback}            todolistId={'todolistID1'}            entityStatus={'idle'}         />         <Task            task={{               id: '2', status: TaskStatuses.New, title: 'JS', entityStatus: 'idle', startDate: '',               priority: TaskPriorities.Low, addedDate: '', order: 1, todoListId: 'todolistId2', description: '',               deadline: ''            }}            changeTaskStatus={changeTaskStatusCallback}            changeTaskTitle={changeTaskTitleCallback}            removeTask={removeTaskCallback}            todolistId={'todolistID2'}            entityStatus={'idle'}         />      </>   )}
+import React from 'react'
+import {action} from '@storybook/addon-actions'
+import {Task} from './Task'
+import {ReduxStoreProviderDecorator} from '../../../../stories/decorators/ReduxStoreProviderDecorator'
+import {TaskPriorities, TaskStatuses} from '../../../../api/types'
+
+export default {
+   title: 'Task Stories',
+   component: Task,
+   decorators: [ReduxStoreProviderDecorator]
+}
+
+const removeCallback = action('Remove Button inside Task clicked')
+const changeStatusCallback = action('Status changed inside Task')
+const changeTitleCallback = action('Title changed inside Task')
+
+export const TaskBaseExample = (props: any) => {
+   return (
+      <div>
+         <Task
+            task={{
+               id: '1', status: TaskStatuses.Completed, title: 'CSS', todoListId: 'todolistId1', description: '',
+               startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low
+            }}
+            todolistId={'todolistId1'}
+         />
+         <Task
+            task={{
+               id: '2', status: TaskStatuses.New, title: 'JS', todoListId: 'todolistId1', description: '',
+               startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low
+            }}
+            todolistId={'todolistId2'}
+         />
+      </div>)
+}
